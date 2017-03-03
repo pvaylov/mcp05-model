@@ -84,6 +84,84 @@ parameters:
           node:
             prx02:
               provider: kvm03.${_param:cluster_domain}
+  linux:
+    network:
+      interface:
+        eth0:
+          enabled: true
+          proto: manual
+          mtu: 9000
+        eth1:
+          enabled: true
+          type: slave
+          proto: manual
+          mtu: 9000
+          master: bond0
+        eth2:
+          enabled: true
+          type: slave
+          proto: manual
+          mtu: 9000
+          master: bond0
+        eth3:
+          enabled: true
+          type: slave
+          proto: manual
+          mtu: 9000
+          master: bond0
+        eth4:
+          enabled: true
+          type: slave
+          proto: manual
+          mtu: 9000
+          master: bond0
+        eth5:
+          enabled: true
+          type: slave
+          proto: manual
+          mtu: 9000
+          master: bond0
+        bond0:
+          enabled: true
+          proto: manual
+          type: bond
+          use_interfaces:
+          - eth1
+          - eth2
+          - eth3
+          - eth4
+          - eth5
+          slaves: eth1 eth2 eth3 eth4 eth5
+          mode: 802.3ad
+          lacp_rate: slow
+          hashing-algorithm: layer2+3
+          mimon: 100
+        bond0.1361:
+          enabled: true
+          type: vlan
+          proto: manual
+          mtu: 9000
+          use_interfaces:
+          - bond0
+        br-admin:
+          enabled: true
+          name_servers:
+          - 172.17.32.3
+          - 8.8.8.8
+          - 8.8.4.4
+          type: bridge
+          mtu: 9000
+          use_interfaces:
+          - eth0
+        br-mgmt:
+          enabled: true
+          type: bridge
+          proto: manual
+          mtu: 9000
+          use_interfaces:
+          - bond0.1361
+    network_manager:
+      disable: true
   ##FIXME
   # linux:
   #   network:
